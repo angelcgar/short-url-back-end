@@ -1,11 +1,18 @@
+import { AppRoutes } from './presentation/routes/AppRoutes';
+import { ServerApp } from './presentation/server';
 import 'dotenv/config';
-import express from 'express';
 
-const app = express();
+// console.log('Environment:', process.env.NODE_ENV);
 
-app.use(express.json());
+(async () => {
+	main();
+})();
 
-console.log('Hello Node');
-console.log('Environment:', process.env.NODE_ENV);
-
-export default app;
+function main() {
+	const server = new ServerApp({
+		port: Number(process.env.PORT),
+		router: AppRoutes.routes,
+		public_path: process.env.PUBLIC_PATH,
+	});
+	server.start();
+}
