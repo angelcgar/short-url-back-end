@@ -1,11 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Short URL | Acorta tus enlaces</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    header {
+      width: 100%;
+      padding: 2rem 0 1rem 0;
+      text-align: center;
+    }
+    h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+    p {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    main {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 24px rgba(80, 60, 120, 0.15);
+      padding: 2.5rem 2rem 1.5rem 2rem;
+      min-width: 340px;
+      max-width: 90vw;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    form {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      justify-content: center;
+    }
+    input[type="url"] {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input[type="url"]:focus {
+      border: 1.5px solid #764ba2;
+    }
+    button {
+      padding: 0.7rem 1.2rem;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      color: #333;
+      word-break: break-all;
+    }
+    footer {
+      margin-top: auto;
+      padding: 1rem 0;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    @media (max-width: 500px) {
+      main { min-width: unset; padding: 1.2rem 0.5rem; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Short URL</h1>
+    <p>Acorta tus enlaces de manera rápida, sencilla y segura.</p>
+  </header>
+  <main>
+    <form id="shorten-form">
+      <input type="url" id="url-input" placeholder="Pega tu enlace aquí..." required>
+      <button type="submit">Acortar</button>
+    </form>
+    <div class="result" id="result"></div>
+  </main>
+  <footer>
+    &copy; 2025 &mdash; Desarrollado por Angel Contreras Garcia
+  </footer>
+  <script>
+    const form = document.getElementById('shorten-form');
+    const urlInput = document.getElementById('url-input');
+    const resultDiv = document.getElementById('result');
 
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      resultDiv.textContent = 'Acortando...';
+      try {
+        // Aquí deberías llamar a tu endpoint real para acortar la URL
+        // Simulación de respuesta
+        setTimeout(() => {
+          resultDiv.innerHTML = 'Tu enlace corto: <a href="#" target="_blank">https://short.url/abc123</a>';
+        }, 1200);
+      } catch (err) {
+        resultDiv.textContent = 'Ocurrió un error al acortar el enlace.';
+      }
+    });
+  </script>
 </body>
 </html>
