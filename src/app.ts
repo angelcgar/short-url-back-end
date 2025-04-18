@@ -1,8 +1,6 @@
-import { AppRoutes } from './presentation/routes/AppRoutes';
+import { AppRoutes } from './presentation/routes';
 import { ServerApp } from './presentation/server';
-import 'dotenv/config';
-
-// console.log('Environment:', process.env.NODE_ENV);
+import { envs } from './config/envs';
 
 (async () => {
 	main();
@@ -10,9 +8,9 @@ import 'dotenv/config';
 
 function main() {
 	const server = new ServerApp({
-		port: Number(process.env.PORT),
+		port: envs.PORT,
 		router: AppRoutes.routes,
-		public_path: process.env.PUBLIC_PATH,
+		public_path: envs.PUBLIC_PATH,
 	});
 	server.start();
 }

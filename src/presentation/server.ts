@@ -41,8 +41,12 @@ export class ServerApp {
 		this.app.use(this.router);
 
 		// * SPA
-		this.app.get('*', (req, res) => {
-			res.json({ message: 'Hello World' });
+		this.app.get('*', (_req, res) => {
+			const indexPath = path.join(
+				`${__dirname}/../../${this.publicPath}/index.html`,
+			);
+
+			res.sendFile(indexPath);
 		});
 
 		this.serverListener = this.app.listen(this.port, () => {
