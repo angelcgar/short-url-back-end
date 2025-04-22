@@ -1,6 +1,6 @@
 import type { ShortUrlDatasource } from '../../datasources/short-url.datasource';
 import type { CreateShortUrlDto } from '../../domain/dtos/url/create-short-url.dto';
-import { ShortUrlEntity } from '../../domain/entities/shor-url.entity';
+import type { ShortUrlEntity } from '../../domain/entities/short-url.entity';
 import { turso } from './index';
 
 export interface ShortUrl {
@@ -13,18 +13,7 @@ export interface ShortUrl {
 
 export class ShortUrlRepository implements ShortUrlDatasource {
 	async create(createShortUrlDto: CreateShortUrlDto): Promise<ShortUrlEntity> {
-		const result = await turso.execute(
-			'INSERT INTO short_urls (short_code, original_url) VALUES (?, ?)',
-			[createShortUrlDto.short_code, createShortUrlDto.original_url],
-		);
-
-		return ShortUrlEntity.fromObject({
-			id: result.lastInsertRowid,
-			short_code: createShortUrlDto.short_code,
-			original_url: createShortUrlDto.original_url,
-			created_at: new Date().toISOString(),
-			visit_count: 0,
-		});
+		throw new Error('Method not implemented');
 	}
 
 	async findByCode(short_code: string): Promise<ShortUrlEntity | null> {

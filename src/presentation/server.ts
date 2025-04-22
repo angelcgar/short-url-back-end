@@ -1,6 +1,16 @@
+/**
+ * Este archivo define la clase ServerApp, encargada de configurar y levantar el servidor HTTP principal
+ * de la aplicación Short URL utilizando Express. Gestiona middlewares, rutas, archivos estáticos y el ciclo de vida del servidor.
+ */
 import express, { type Router } from 'express';
 import path from 'node:path';
 
+/**
+ * Propiedades para inicializar el servidor.
+ * @property port Puerto en el que escuchará el servidor (opcional).
+ * @property public_path Ruta a la carpeta de archivos estáticos (opcional).
+ * @property router Router principal con las rutas de la app.
+ */
 interface ServerAppProps {
 	port?: number;
 	public_path?: string;
@@ -12,6 +22,13 @@ type ServerListener = import('http').Server<
 	typeof import('http').ServerResponse
 >;
 
+/**
+ * Clase principal para la gestión del servidor Express.
+ *
+ * - Configura middlewares para JSON, formularios y archivos estáticos.
+ * - Define las rutas principales de la aplicación.
+ * - Permite iniciar y cerrar el servidor.
+ */
 export class ServerApp {
 	public readonly app = express();
 
@@ -21,6 +38,10 @@ export class ServerApp {
 
 	private serverListener?: ServerListener;
 
+	/**
+	 * Inicializa la instancia del servidor con las propiedades dadas.
+	 * @param serverProps Configuración del servidor (puerto, rutas, path público)
+	 */
 	constructor(serverProps: ServerAppProps) {
 		const { port, router, public_path = 'public' } = serverProps;
 
@@ -29,6 +50,9 @@ export class ServerApp {
 		this.router = router;
 	}
 
+	/**
+	 * Inicia el servidor HTTP y configura los middlewares y rutas.
+	 */
 	public start() {
 		// * Middleware
 		this.app.use(express.json());
@@ -54,6 +78,9 @@ export class ServerApp {
 		});
 	}
 
+	/**
+	 * Cierra el servidor HTTP si está activo.
+	 */
 	public close() {
 		this.serverListener?.close();
 	}

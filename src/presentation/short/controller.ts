@@ -1,3 +1,9 @@
+/**
+ * Controlador para gestionar las operaciones HTTP relacionadas con URLs cortas.
+ *
+ * Este archivo define la clase que recibe las peticiones del cliente, valida los datos y coordina
+ * la ejecución de los casos de uso del dominio, devolviendo respuestas adecuadas.
+ */
 import type { Request, Response } from 'express';
 
 import { CustomError } from '../../domain/errors/custom.error';
@@ -5,9 +11,24 @@ import type { ShortUrlRepository } from '../../domain/repositories/short-url.rep
 import { CreateShortUrlDto } from '../../domain/dtos/url/create-short-url.dto';
 import { CreateShortUrl } from '../../domain/use-cases/short-url/create-short-url';
 
+/**
+ * Controlador para las rutas relacionadas con Short URL.
+ *
+ * Gestiona la creación de nuevas URLs cortas y el manejo de errores.
+ */
 export class ShortUrlController {
+	/**
+	 * Recibe una instancia de repositorio para interactuar con el dominio.
+	 * @param shortUrlRepository Repositorio de URLs cortas.
+	 */
 	constructor(private readonly shortUrlRepository: ShortUrlRepository) {}
 
+	/**
+	 * Maneja los errores y envía respuestas HTTP adecuadas.
+	 * @param res Objeto Response de Express.
+	 * @param error Error capturado.
+	 * @private
+	 */
 	private handleError = (res: Response, error: unknown) => {
 		if (error instanceof CustomError) {
 			res.status(error.statusCode).json({ error: error.message });
@@ -18,6 +39,16 @@ export class ShortUrlController {
 		res.status(500).json({ error: 'Internal server error - check logs' });
 	};
 
+	/**
+	 * Endpoint para crear una nueva URL corta.
+	 *
+	 * - Valida el body de la petición.
+	 * - Ejecuta el caso de uso de creación.
+	 * - Devuelve la URL corta creada o un error si corresponde.
+	 *
+	 * @param req Objeto Request de Express.
+	 * @param res Objeto Response de Express.
+	 */
 	public createShortUrl = async (req: Request, res: Response) => {
 		if (!req.body) res.status(400).json({ error: 'Invalid parameters' });
 
