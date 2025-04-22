@@ -19,18 +19,17 @@ export class ShortUrlController {
 	};
 
 	public createShortUrl = async (req: Request, res: Response) => {
-		console.log('hola');
-
 		if (!req.body) res.status(400).json({ error: 'Invalid parameters' });
 
 		const [error, createShortUrlDto] = CreateShortUrlDto.create(req.body);
 
 		if (error) {
 			res.status(400).json({ error });
+
+			return;
 		}
 
 		new CreateShortUrl(this.shortUrlRepository)
-			// biome-ignore lint/style/noNonNullAssertion: <explanation>
 			.execute(createShortUrlDto!)
 			.then((shortUrl) => res.status(201).json(shortUrl))
 			.catch((err) => this.handleError(res, err));
