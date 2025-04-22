@@ -3,17 +3,23 @@ import type { ShortUrlDatasource } from '../../datasources/short-url.datasource'
 import type { CreateShortUrlDto } from '../../domain/dtos/url/create-short-url.dto';
 import { ShortUrlEntity } from '../../domain/entities/shor-url.entity';
 
+import shortid from 'shortid';
+
 export class ShortUrlDatasourceImpl implements ShortUrlDatasource {
 	async create(createShortUrlDto: CreateShortUrlDto): Promise<ShortUrlEntity> {
+		// logica para generar el short_code
+		const shortCode = shortid.generate();
+		const shortUrl = `http://localhost:3000/${shortCode}`; // Cambia por tu dominio
+
 		const result = await turso.execute(
 			'INSERT INTO short_urls (short_code, original_url) VALUES (?, ?)',
-			[createShortUrlDto.short_code, createShortUrlDto.original_url],
+			[shortUrl, createShortUrlDto.original_url],
 		);
 
 		return ShortUrlEntity.fromObject({
-			id: result.lastInsertRowid,
-			short_code: createShortUrlDto.short_code,
+			id: result.lastInsertRowid?.toString(),
 			original_url: createShortUrlDto.original_url,
+			short_code: shortUrl,
 			created_at: new Date().toISOString(),
 			visit_count: 0,
 		});
