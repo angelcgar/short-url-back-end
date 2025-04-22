@@ -35,6 +35,7 @@ export class ShortUrlEntity {
 	public static fromObject(obj: Record<string, any>): ShortUrlEntity {
 		const { id, original_url, short_code, created_at, visit_count } = obj;
 		if (!id) throw new Error('Invalid object');
+		if (!original_url) throw new Error('Invalid object');
 
 		// todo: incrementar visit_count
 
