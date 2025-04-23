@@ -40,6 +40,8 @@ export class ShortUrlRoutes {
 
 		router.post('/', shortUrlController.createShortUrl);
 
+		router.get('/:shortCode', shortUrlController.getShortUrl);
+
 		return router;
 	}
 }

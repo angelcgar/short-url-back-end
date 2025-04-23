@@ -10,6 +10,7 @@ import { CustomError } from '../../domain/errors/custom.error';
 import type { ShortUrlRepository } from '../../domain/repositories/short-url.repository';
 import { CreateShortUrlDto } from '../../domain/dtos/url/create-short-url.dto';
 import { CreateShortUrl } from '../../domain/use-cases/short-url/create-short-url';
+import { GetShortUrl } from '../../domain/use-cases/short-url/get-short-url';
 
 /**
  * Controlador para las rutas relacionadas con Short URL.
@@ -65,6 +66,21 @@ export class ShortUrlController {
 		new CreateShortUrl(this.shortUrlRepository)
 			.execute(createShortUrlDto!)
 			.then((shortUrl) => res.status(201).json(shortUrl))
+			.catch((err) => this.handleError(res, err));
+	};
+
+	public getShortUrl = async (req: Request, res: Response) => {
+		if (!req.params.shortCode) {
+			res.status(400).json({ error: 'Invalid parameters' });
+			return;
+		}
+
+		const shortCode = req.params.shortCode;
+		console.log(shortCode);
+
+		new GetShortUrl(this.shortUrlRepository)
+			.execute(shortCode)
+			.then((shortUrl) => res.redirect(shortUrl))
 			.catch((err) => this.handleError(res, err));
 	};
 }

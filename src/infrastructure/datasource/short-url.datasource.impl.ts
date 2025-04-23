@@ -30,17 +30,38 @@ export class ShortUrlDatasourceImpl implements ShortUrlDatasource {
 
 		const result = await turso.execute(
 			'INSERT INTO short_urls (short_code, original_url) VALUES (?, ?)',
-			[shortUrl, createShortUrlDto.original_url],
+			[shortCode, createShortUrlDto.original_url],
 		);
 
 		return ShortUrlEntity.fromObject({
 			id: result.lastInsertRowid?.toString(),
 			original_url: createShortUrlDto.original_url,
-			short_code: shortUrl,
+			short_code: shortCode.toString(),
 			created_at: new Date().toISOString(),
 			visit_count: 0,
 		});
 	}
+
+	/**
+	 * Busca una URL corta por su código corto.
+	 * @param shortCode Código corto a buscar.
+	 * @returns La entidad encontrada o null si no existe.
+	 */
+	async findByShortCode(shortCode: string): Promise<string | null> {
+		const result = await turso.execute(
+			'SELECT * FROM short_urls WHERE short_code = ? LIMIT 1',
+			[shortCode],
+		);
+
+		console.log(result.rows[0].original_url, 'result ====>');
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return result.rows[0].original_url as string;
+	}
+
 	/**
 	 * Busca una URL corta por su código en la base de datos.
 	 * @param short_code Código corto a buscar.

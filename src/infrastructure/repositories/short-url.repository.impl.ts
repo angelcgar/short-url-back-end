@@ -31,6 +31,16 @@ export class ShortUrlRepositoryImpl implements ShortUrlRepository {
 	}
 
 	/**
+	 * Busca una URL corta por su código corto.
+	 * @param shortCode Código corto a buscar.
+	 * @returns La entidad encontrada o null si no existe.
+	 * @throws Error si el método no está implementado.
+	 */
+	async findByShortCode(shortCode: string): Promise<string | null> {
+		return this.datasource.findByShortCode(shortCode);
+	}
+
+	/**
 	 * Busca una URL corta por su código identificador.
 	 * @param short_code Código corto a buscar.
 	 * @returns La entidad encontrada o null si no existe.

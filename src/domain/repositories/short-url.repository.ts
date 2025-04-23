@@ -23,6 +23,13 @@ export abstract class ShortUrlRepository {
 	): Promise<ShortUrlEntity>;
 
 	/**
+	 * Busca una URL corta por su código corto.
+	 * @param shortCode Código corto a buscar.
+	 * @returns La entidad encontrada o null si no existe.
+	 */
+	abstract findByShortCode(shortCode: string): Promise<string | null>;
+
+	/**
 	 * Busca una URL corta por su código identificador.
 	 * @param short_code Código corto a buscar.
 	 * @returns La entidad encontrada o null si no existe.
