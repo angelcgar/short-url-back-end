@@ -50,13 +50,15 @@ export class ShortUrlController {
 	 * @param res Objeto Response de Express.
 	 */
 	public createShortUrl = async (req: Request, res: Response) => {
-		if (!req.body) res.status(400).json({ error: 'Invalid parameters' });
+		if (!req.body) {
+			res.status(400).json({ error: 'Invalid parameters' });
+			return;
+		}
 
 		const [error, createShortUrlDto] = CreateShortUrlDto.create(req.body);
 
 		if (error) {
 			res.status(400).json({ error });
-
 			return;
 		}
 
