@@ -11,12 +11,8 @@ import validUrl from 'valid-url';
 export class CreateShortUrlDto {
 	/**
 	 * @param original_url URL original a acortar.
-	 * @param short_code (opcional) Código corto personalizado.
 	 */
-	constructor(
-		public original_url: string,
-		public short_code?: string,
-	) {}
+	constructor(public original_url: string) {}
 
 	/**
 	 * Valida y construye una instancia de CreateShortUrlDto a partir de un objeto plano.
@@ -31,7 +27,7 @@ export class CreateShortUrlDto {
 		const { original_url } = props;
 
 		if (!original_url) {
-			return ['Invalid parameters', undefined];
+			return ['original_url is required', undefined];
 		}
 
 		// Validar URL
