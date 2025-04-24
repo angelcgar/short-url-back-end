@@ -14,6 +14,12 @@ import type { ShortUrlEntity } from '../entities/short-url.entity';
  */
 export abstract class ShortUrlRepository {
 	/**
+	 * Busca todas las URLs cortas.
+	 * @returns La lista de entidades ShortUrl.
+	 */
+	abstract getAll(): Promise<ShortUrlEntity[]>;
+
+	/**
 	 * Crea una nueva URL corta a partir de los datos proporcionados.
 	 * @param createShortUrlDto Datos necesarios para crear la URL corta.
 	 * @returns La entidad ShortUrl creada.

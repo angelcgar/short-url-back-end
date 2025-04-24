@@ -20,6 +20,21 @@ import { CustomError } from '../../domain/errors/custom.error';
  */
 export class ShortUrlDatasourceImpl implements ShortUrlDatasource {
 	/**
+	 * Busca todas las URLs cortas.
+	 * @returns La lista de entidades ShortUrl.
+	 */
+	async getAll(): Promise<ShortUrlEntity[]> {
+		const result = await turso.execute('SELECT * FROM short_urls');
+		if (!result.rows.length) {
+			// TODO: manejar excepción en caso de no encontrar URLs cortas
+
+			return [];
+		}
+		console.log(result.rows, 'result rows');
+		return result.rows.map((row) => ShortUrlEntity.fromObject(row));
+	}
+
+	/**
 	 * Crea y almacena una nueva URL corta en la base de datos.
 	 * @param createShortUrlDto Datos necesarios para crear la URL corta.
 	 * @returns La entidad ShortUrl creada y persistida.

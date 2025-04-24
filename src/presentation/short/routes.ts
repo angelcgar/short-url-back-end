@@ -34,9 +34,7 @@ export class ShortUrlRoutes {
 
 		const shortUrlController = new ShortUrlController(shortUrlRepository);
 
-		router.get('/', (_req, res) => {
-			return res.status(200).json({ message: 'Hello, World!!!!!' });
-		});
+		router.get('/', shortUrlController.getAllShortUrl);
 
 		router.post('/', shortUrlController.createShortUrl);
 

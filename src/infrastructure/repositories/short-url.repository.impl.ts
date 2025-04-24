@@ -22,6 +22,14 @@ export class ShortUrlRepositoryImpl implements ShortUrlRepository {
 	constructor(private readonly datasource: ShortUrlDatasource) {}
 
 	/**
+	 * Busca todas las URLs cortas.
+	 * @returns La lista de entidades ShortUrl.
+	 */
+	async getAll(): Promise<ShortUrlEntity[]> {
+		return this.datasource.getAll();
+	}
+
+	/**
 	 * Crea una nueva URL corta delegando al datasource.
 	 * @param createShortUrlDto Datos necesarios para crear la URL corta.
 	 * @returns La entidad ShortUrl creada.

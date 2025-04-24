@@ -11,6 +11,7 @@ import type { ShortUrlRepository } from '../../domain/repositories/short-url.rep
 import { CreateShortUrlDto } from '../../domain/dtos/url/create-short-url.dto';
 import { CreateShortUrl } from '../../domain/use-cases/short-url/create-short-url';
 import { GetShortUrl } from '../../domain/use-cases/short-url/get-short-url';
+import { GetAllShortUrl } from '../../domain/use-cases/short-url/get-short.urls';
 
 /**
  * Controlador para las rutas relacionadas con Short URL.
@@ -38,6 +39,13 @@ export class ShortUrlController {
 
 		// grabar log
 		res.status(500).json({ error: 'Internal server error - check logs' });
+	};
+
+	public getAllShortUrl = async (req: Request, res: Response) => {
+		new GetAllShortUrl(this.shortUrlRepository)
+			.execute()
+			.then((shortUrls) => res.status(200).json(shortUrls))
+			.catch((err) => this.handleError(res, err));
 	};
 
 	/**
