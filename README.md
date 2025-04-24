@@ -1,5 +1,29 @@
 # Short URL Backend
 
+## 🚦 Cómo levantar el proyecto
+
+1. Clona el repositorio:
+   ```bash
+   git clone <repo-url>
+   cd short-url-back-end
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Copia el archivo de variables de entorno:
+   ```bash
+   cp .env.example .env
+   # Edita .env con tus valores personalizados
+   ```
+4. Inicia el servidor en modo desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+El backend estará corriendo en el puerto configurado en tu archivo `.env` (por defecto 3000).
+
+
 Backend en TypeScript para acortar URLs, siguiendo principios de arquitectura limpia y buenas prácticas de desarrollo.
 
 ## 🏗️ Arquitectura

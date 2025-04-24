@@ -23,6 +23,7 @@ out/
 ### Env files ###
 .env
 .env.*
+!.env.example
 
 ### Logs ###
 logs/
@@ -50,4 +51,3 @@ docker-compose.override.yml
 .cache/
 .nyc_output/
 *.swp
-
