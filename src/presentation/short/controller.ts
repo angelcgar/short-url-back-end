@@ -77,7 +77,7 @@ export class ShortUrlController {
 			.catch((err) => this.handleError(res, err));
 	};
 
-	public getShortUrl = async (req: Request, res: Response) => {
+	public getShortUrlByCode = async (req: Request, res: Response) => {
 		if (!req.params.shortCode) {
 			res.status(400).json({ error: 'Invalid parameters' });
 			return;
