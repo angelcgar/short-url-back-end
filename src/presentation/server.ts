@@ -4,6 +4,7 @@
  */
 import express, { type Router } from 'express';
 import path from 'node:path';
+import cors from 'cors';
 
 /**
  * Propiedades para inicializar el servidor.
@@ -54,6 +55,9 @@ export class ServerApp {
 	 * Inicia el servidor HTTP y configura los middlewares y rutas.
 	 */
 	public start() {
+		// cors
+		this.app.use(cors());
+
 		// * Middleware
 		this.app.use(express.json());
 		this.app.use(express.urlencoded({ extended: true }));
