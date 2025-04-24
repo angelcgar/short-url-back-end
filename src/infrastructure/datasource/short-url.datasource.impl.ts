@@ -12,6 +12,7 @@ import type { ShortUrlDatasource } from '../../datasources/short-url.datasource'
 
 import type { CreateShortUrlDto } from '../../domain/dtos/url/create-short-url.dto';
 import { ShortUrlEntity } from '../../domain/entities/short-url.entity';
+import { CustomError } from '../../domain/errors/custom.error';
 
 /**
  * Implementa la interfaz ShortUrlDatasource para gestionar URLs cortas en SQLite.
@@ -56,7 +57,8 @@ export class ShortUrlDatasourceImpl implements ShortUrlDatasource {
 		console.log(result.rows[0].original_url, 'result ====>');
 
 		if (!result.rows.length) {
-			return null;
+			// todo: hacer un custom error
+			throw new CustomError('ShortUrl not found', 404);
 		}
 
 		return result.rows[0].original_url as string;
