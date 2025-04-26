@@ -56,7 +56,12 @@ export class ServerApp {
 	 */
 	public start() {
 		// cors
-		this.app.use(cors());
+		this.app.use(
+			cors({
+				origin:
+					'[https://short-url-front-end.vercel.app](https://short-url-front-end.vercel.app)',
+			}),
+		);
 
 		// * Middleware
 		this.app.use(express.json());
