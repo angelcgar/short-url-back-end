@@ -58,8 +58,7 @@ export class ServerApp {
 		// cors
 		this.app.use(
 			cors({
-				origin:
-					'[https://short-url-front-end.vercel.app](https://short-url-front-end.vercel.app)',
+				origin: 'https://short-url-front-end.vercel.app',
 			}),
 		);
 
