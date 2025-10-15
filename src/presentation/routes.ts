@@ -20,6 +20,7 @@ export class AppRoutes {
 		const router = Router();
 
 		router.use('/api/short', ShortUrlRoutes.routes);
+		router.use('/a/s', ShortUrlRoutes.routes);
 
 		return router;
 	}
